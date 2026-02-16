@@ -1,0 +1,662 @@
+/* ========================================
+   CSS Variables (디자인 토큰)
+   style-guide.md 기반으로 정의
+   ======================================== */
+:root {
+    /* 컬러 팔레트 */
+    --color-white: #FFFFFF;
+    --color-black: #000000;
+
+    --color-grey-300: #C5C4CE;
+    --color-grey-200: #D8D8D8;
+
+    --color-navy-950: #00001A;
+    --color-navy-600: #5E607A;
+
+    --color-gold-400: #F99A52;
+    --color-red-600: #FF5D51;
+
+    /* 타이포그래피 - Font Sizes */
+    --font-size-preset-1: 56px;
+    /* 대형 헤딩 */
+    --font-size-preset-2: 40px;
+    /* 중형 헤딩 */
+    --font-size-preset-3: 32px;
+    /* 소형 헤딩 */
+    --font-size-preset-4: 20px;
+    /* 강조 텍스트 */
+    --font-size-preset-5: 18px;
+    /* 서브 헤딩 */
+    --font-size-preset-6: 15px;
+    /* 본문 */
+    --font-size-preset-7: 14px;
+    /* 라벨/버튼 */
+
+    /* 타이포그래피 - Line Heights */
+    --line-height-preset-1: 56px;
+    --line-height-preset-2: 40px;
+    --line-height-preset-3: 32px;
+    --line-height-preset-4: 24px;
+    --line-height-preset-5: 24px;
+    --line-height-preset-6: 26px;
+    --line-height-preset-7: 24px;
+
+    /* 타이포그래피 - Font Weights */
+    --font-weight-regular: 400;
+    --font-weight-bold: 700;
+    --font-weight-extra-bold: 800;
+
+    /* 간격 시스템 (Spacing) */
+    --spacing-100: 8px;
+    --spacing-300: 24px;
+    --spacing-400: 32px;
+    --spacing-500: 40px;
+    --spacing-800: 64px;
+    --spacing-1100: 88px;
+
+    /* 브레이크포인트 */
+    --breakpoint-tablet: 768px;
+    --breakpoint-desktop: 1024px;
+
+    /* 레이아웃 */
+    --container-max-width: 1110px;
+    --container-padding: 16px;
+
+    /* 트랜지션 */
+    --transition-fast: 0.2s ease-in-out;
+    --transition-normal: 0.3s ease-in-out;
+}
+
+/* ========================================
+   CSS Reset & Base Styles
+   ======================================== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    /* 모든 요소의 박스 모델을 border-box로 설정 */
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    /* 기본 폰트 사이즈 */
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    /* Inter 폰트 적용 */
+    font-size: var(--font-size-preset-6);
+    /* 본문 텍스트 크기 (15px) */
+    line-height: var(--line-height-preset-6);
+    /* 본문 라인 높이 (26px) */
+    font-weight: var(--font-weight-regular);
+    color: var(--color-navy-600);
+    /* 기본 텍스트 색상 */
+    background-color: var(--color-white);
+    overflow-x: hidden;
+    /* 가로 스크롤 방지 */
+}
+
+/* 리스트 스타일 제거 */
+ul,
+ol {
+    list-style: none;
+}
+
+/* 링크 기본 스타일 */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* 이미지 반응형 기본 설정 */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* 버튼 기본 스타일 리셋 */
+button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+/* ========================================
+   Overlay (모바일 메뉴 백그라운드)
+   ======================================== */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* 반투명 검은색 오버레이 */
+    opacity: 0;
+    /* 기본적으로 숨김 */
+    visibility: hidden;
+    /* 기본적으로 숨김 */
+    transition: opacity var(--transition-normal), visibility var(--transition-normal);
+    z-index: 998;
+    /* 메뉴보다 아래 레이어 */
+}
+
+/* 메뉴가 열렸을 때 오버레이 표시 */
+.overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ========================================
+   Header (헤더)
+   ======================================== */
+.header {
+    margin-top: 28px;
+    /* 위쪽 28px 마진 추가 */
+    margin-bottom: 32px;
+    /* 아래쪽 32px 마진 추가 */
+    padding: 0;
+    /* 기존 상하 패딩 삭제 */
+}
+
+.header__container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+    display: flex;
+    justify-content: space-between;
+    /* 로고와 메뉴 양 끝 배치 */
+    align-items: center;
+}
+
+.header__logo img {
+    width: 45px;
+    /* 로고 크기 */
+    height: auto;
+}
+
+/* 데스크탑 네비게이션 */
+.header__nav {
+    display: none;
+    /* 모바일에서는 기본적으로 숨김 */
+}
+
+.header__nav-list {
+    display: flex;
+    gap: var(--spacing-500);
+    /* 메뉴 아이템 간격 40px */
+}
+
+.header__nav-link {
+    font-size: var(--font-size-preset-6);
+    color: var(--color-navy-600);
+    transition: color var(--transition-fast);
+}
+
+.header__nav-link:hover,
+.header__nav-link:focus {
+    color: var(--color-red-600);
+    /* 호버 시 빨간색 */
+}
+
+/* 모바일 메뉴 버튼 */
+.header__menu-btn {
+    display: block;
+    /* 모바일에서 표시 */
+    z-index: 1000;
+}
+
+.header__menu-icon {
+    width: 40px;
+    height: 17px;
+}
+
+/* 모바일 메뉴 닫기 버튼 */
+.header__close-btn {
+    display: none;
+    /* 기본적으로 숨김 */
+    position: fixed;
+    top: var(--spacing-300);
+    right: var(--container-padding);
+    z-index: 1000;
+}
+
+.header__close-btn img {
+    width: 32px;
+    height: 31px;
+}
+
+/* 메뉴가 열렸을 때 */
+.header__nav.active {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 256px;
+    /* 모바일 메뉴 너비 */
+    height: 100vh;
+    /* 전체 높이 */
+    background-color: var(--color-white);
+    padding: 144px 24px;
+    /* 상단 여백 + 좌우 여백 */
+    z-index: 999;
+    transform: translateX(0);
+    /* 슬라이드 인 */
+    transition: transform var(--transition-normal);
+}
+
+.header__nav.active .header__nav-list {
+    flex-direction: column;
+    /* 세로 배치 */
+    gap: var(--spacing-300);
+    /* 간격 24px */
+}
+
+.header__nav.active .header__nav-link {
+    font-size: var(--font-size-preset-5);
+    /* 18px */
+    color: var(--color-navy-950);
+    /* 다크 네이비 */
+}
+
+.header__close-btn.active {
+    display: block;
+    /* 메뉴가 열리면 닫기 버튼 표시 */
+}
+
+/* ========================================
+   Main Container
+   ======================================== */
+.main__container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+}
+
+/* ========================================
+   Hero Section (메인 기사)
+   ======================================== */
+.hero {
+    margin-bottom: var(--spacing-800);
+    /* 하단 여백 64px */
+}
+
+.hero__image {
+    display: block;
+    /* picture 태그가 마진을 가질 수 있도록 블록 요소로 변경 */
+    margin-bottom: var(--spacing-300);
+    /* 이미지와 콘텐츠 사이 간격 24px */
+}
+
+.hero__image img {
+    width: 100%;
+    height: auto;
+}
+
+.hero__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-300);
+    /* 제목과 설명 사이 간격 24px */
+}
+
+.hero__title {
+    font-size: var(--font-size-preset-2);
+    /* 40px */
+    line-height: var(--line-height-preset-2);
+    /* 40px */
+    font-weight: var(--font-weight-extra-bold);
+    /* 800 */
+    letter-spacing: 0px;
+    /* Text Preset 2 규격 적용 */
+    color: var(--color-navy-950);
+}
+
+.hero__description {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-300);
+}
+
+.hero__text {
+    font-size: var(--font-size-preset-6);
+    /* 15px */
+    line-height: var(--line-height-preset-6);
+    /* 26px */
+    font-weight: var(--font-weight-regular);
+    /* 400 */
+    letter-spacing: 0px;
+    /* Text Preset 6 규격 적용 */
+    color: var(--color-navy-600);
+}
+
+.hero__btn {
+    display: flex;
+    /* 텍스트 중앙 정렬을 위해 flex 사용 */
+    justify-content: center;
+    /* 가로 중앙 정렬 */
+    align-items: center;
+    /* 세로 중앙 정렬 */
+    width: 185px;
+    /* 너비 185px 고정 */
+    height: 48px;
+    /* 높이 48px 고정 */
+    background-color: var(--color-red-600);
+    color: var(--color-navy-950);
+    /* 텍스트 색상을 Navy 950으로 변경 */
+
+    /* Text Preset 7 적용 */
+    font-size: var(--font-size-preset-7);
+    /* 14px */
+    line-height: var(--line-height-preset-7);
+    /* 24px */
+    font-weight: var(--font-weight-bold);
+    /* 700 */
+    letter-spacing: 4.38px;
+    /* 자간 설정 */
+    text-transform: uppercase;
+    /* 대문자 변환 */
+
+    transition: background-color var(--transition-fast);
+    align-self: flex-start;
+    /* 버튼을 왼쪽 정렬 */
+}
+
+.hero__btn:hover,
+.hero__btn:focus {
+    background-color: var(--color-navy-950);
+    /* 호버 시 다크 네이비 */
+}
+
+/* ========================================
+   News Section (새로운 뉴스)
+   ======================================== */
+.news {
+    background-color: var(--color-navy-950);
+    padding: 16px 24px;
+    /* 상하 16px, 좌우 24px 패딩 수정 */
+    margin-bottom: var(--spacing-800);
+    /* 하단 여백 64px */
+}
+
+.news__title {
+    font-size: var(--font-size-preset-3);
+    /* 32px */
+    line-height: var(--line-height-preset-3);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-gold-400);
+    /* 골드 색상 */
+    margin-bottom: var(--spacing-400);
+    /* 하단 여백 32px */
+}
+
+.news__item {
+    padding: var(--spacing-300) 0;
+    /* 상하 24px 패딩 */
+    border-bottom: 1px solid var(--color-navy-600);
+    /* 구분선 */
+}
+
+.news__item--last {
+    border-bottom: none;
+    /* 마지막 아이템은 구분선 없음 */
+}
+
+.news__item-title {
+    margin-bottom: var(--spacing-100);
+    /* 하단 여백 8px */
+}
+
+.news__item-link {
+    font-size: var(--font-size-preset-4);
+    /* 20px */
+    line-height: var(--line-height-preset-4);
+    font-weight: var(--font-weight-extra-bold);
+    color: var(--color-white);
+    transition: color var(--transition-fast);
+}
+
+.news__item-link:hover,
+.news__item-link:focus {
+    color: var(--color-gold-400);
+    /* 호버 시 골드 색상 */
+}
+
+.news__item-text {
+    font-size: var(--font-size-preset-6);
+    /* 15px */
+    line-height: var(--line-height-preset-6);
+    color: var(--color-grey-300);
+}
+
+/* ========================================
+   Featured Section (추천 기사)
+   ======================================== */
+.featured {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-400);
+    /* 아이템 간격 32px */
+    margin-bottom: var(--spacing-800);
+    /* 하단 여백 64px */
+}
+
+.featured__item {
+    display: flex;
+    gap: var(--spacing-300);
+    /* 이미지와 콘텐츠 간격 24px */
+}
+
+.featured__image {
+    width: 100px;
+    /* 이미지 고정 너비 */
+    height: 127px;
+    /* 이미지 고정 높이 */
+    object-fit: cover;
+    /* 이미지 비율 유지하며 영역 채우기 */
+    flex-shrink: 0;
+    /* 이미지 크기 고정 */
+}
+
+.featured__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* 번호와 텍스트 사이 공간 분배 */
+}
+
+.featured__number {
+    font-size: var(--font-size-preset-3);
+    /* 32px */
+    line-height: var(--line-height-preset-3);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-grey-300);
+}
+
+.featured__title {
+    margin-bottom: var(--spacing-100);
+    /* 하단 여백 8px */
+}
+
+.featured__link {
+    font-size: var(--font-size-preset-5);
+    /* 18px */
+    line-height: var(--line-height-preset-5);
+    font-weight: var(--font-weight-extra-bold);
+    color: var(--color-navy-950);
+    transition: color var(--transition-fast);
+}
+
+.featured__link:hover,
+.featured__link:focus {
+    color: var(--color-red-600);
+    /* 호버 시 빨간색 */
+}
+
+.featured__text {
+    font-size: var(--font-size-preset-6);
+    /* 15px */
+    line-height: var(--line-height-preset-6);
+    color: var(--color-navy-600);
+}
+
+/* ========================================
+   Footer
+   ======================================== */
+.footer {
+    padding: var(--spacing-300) 0;
+}
+
+.attribution {
+    font-size: 11px;
+    text-align: center;
+    color: var(--color-navy-600);
+}
+
+.attribution a {
+    color: var(--color-red-600);
+    transition: color var(--transition-fast);
+}
+
+.attribution a:hover {
+    color: var(--color-navy-950);
+}
+
+/* ========================================
+   Media Queries - Tablet (768px 이상)
+   ======================================== */
+@media (min-width: 768px) {
+
+    /* 헤더 */
+    .header {
+        margin: 0;
+        /* 모바일에서 추가한 마진 초기화 */
+        padding: var(--spacing-300) 0;
+        /* 기존 패딩 복구 */
+    }
+
+    .header__menu-btn {
+        display: none;
+        /* 태블릿 이상에서는 햄버거 메뉴 숨김 */
+    }
+
+    .header__nav {
+        display: block;
+        /* 데스크탑 네비게이션 표시 */
+        position: static;
+        /* 고정 위치 해제 */
+        width: auto;
+        height: auto;
+        background-color: transparent;
+        padding: 0;
+    }
+
+    .header__nav-list {
+        flex-direction: row;
+        /* 가로 배치 */
+    }
+
+    .header__nav-link {
+        font-size: var(--font-size-preset-6);
+        /* 15px */
+    }
+
+    /* 히어로 섹션 - 2컬럼 레이아웃 */
+    .hero__content {
+        flex-direction: row;
+        gap: var(--spacing-400);
+        /* 40px */
+    }
+
+    .hero__title {
+        flex: 1;
+        /* 제목이 절반 차지 */
+        font-size: var(--font-size-preset-1);
+        /* 56px */
+        line-height: var(--line-height-preset-1);
+    }
+
+    .hero__description {
+        flex: 1;
+        /* 설명이 절반 차지 */
+    }
+
+    /* Featured 섹션 - 3컬럼 그리드 */
+    .featured {
+        flex-direction: row;
+        gap: var(--spacing-400);
+    }
+
+    .featured__item {
+        flex: 1;
+        /* 각 아이템이 동일한 비율로 공간 차지 */
+        flex-direction: column;
+        /* 세로 배치 */
+    }
+
+    .featured__image {
+        width: 100%;
+        /* 전체 너비 */
+        height: auto;
+    }
+}
+
+/* ========================================
+   Media Queries - Desktop (1024px 이상)
+   ======================================== */
+@media (min-width: 1024px) {
+
+    /* 메인 컨테이너 - 그리드 레이아웃 */
+    .main__container {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        /* 3컬럼 그리드 */
+        grid-template-rows: auto auto;
+        gap: var(--spacing-400);
+        /* 그리드 간격 32px */
+    }
+
+    /* 히어로 섹션 - 2컬럼 차지 */
+    .hero {
+        grid-column: 1 / 3;
+        /* 1번째부터 3번째 전까지 (2컬럼) */
+        grid-row: 1;
+        margin-bottom: 0;
+    }
+
+    .hero__content {
+        margin-top: var(--spacing-400);
+        /* 상단 여백 */
+    }
+
+    /* News 섹션 - 1컬럼 차지 */
+    .news {
+        grid-column: 3 / 4;
+        /* 3번째 컬럼 */
+        grid-row: 1;
+        margin-bottom: 0;
+    }
+
+    /* Featured 섹션 - 전체 너비 */
+    .featured {
+        grid-column: 1 / 4;
+        /* 전체 컬럼 */
+        grid-row: 2;
+        margin-bottom: 0;
+    }
+
+    .featured__item {
+        flex-direction: row;
+        /* 가로 배치로 복원 */
+    }
+
+    .featured__image {
+        width: 100px;
+        height: 127px;
+    }
+}

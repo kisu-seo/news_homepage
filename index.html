@@ -1,3 +1,17 @@
+<!--
+  ==================================================================================
+  News Homepage - Main HTML Structure
+  ==================================================================================
+  @description  뉴스 홈페이지의 메인 HTML 구조를 정의합니다.
+                반응형 레이아웃(모바일/태블릿/데스크탑)을 지원하며,
+                히어로 섹션, 뉴스 목록, 추천 기사로 구성되어 있습니다.
+  
+  @dependencies - styles.css: 모든 스타일링 담당
+                - script.js: 모바일 메뉴 토글 기능 담당
+  
+  @note         BEM 네이밍 규칙을 따릅니다 (Block__Element--Modifier)
+  ==================================================================================
+-->
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -8,34 +22,62 @@
 
   <title>News Homepage</title>
 
-  <!-- Google Fonts - Inter -->
+  <!-- Google Fonts - Inter (weights: 400, 700, 800) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
 
-  <!-- CSS 스타일시트 연결 -->
+  <!-- Main Stylesheet -->
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-  <!-- 모바일 메뉴 오버레이 (메뉴가 열릴 때 배경을 어둡게 만듦) -->
-  <div class="overlay" id="overlay"></div>
+  <!-- 
+    ============================================================================
+    OVERLAY - 모바일 메뉴 배경 (Mobile Menu Background)
+    ============================================================================
+    - 클래스: .overlay
+    - JS 연결: script.js의 SELECTORS.overlay (#overlay)
+    - 역할: 모바일 메뉴가 열렸을 때 나타나는 반투명 배경
+    - 상태: .active 클래스 토글로 표시/숨김
+  -->
+  <div class="overlay" id="overlay" aria-hidden="true"></div>
 
-  <!-- 헤더: 로고와 네비게이션 -->
+  <!-- 
+    ============================================================================
+    HEADER - 상단 네비게이션 영역
+    ============================================================================
+    - 클래스: .header, .header__container
+    - 포함 요소: 로고, 데스크탑 네비게이션, 모바일 메뉴 버튼
+    - 반응형: 모바일에서는 햄버거 메뉴, 데스크탑에서는 가로 네비게이션
+  -->
   <header class="header">
     <div class="header__container">
-      <!-- 로고 -->
+
+      <!-- 로고 (Logo) - .header__logo -->
       <a href="#" class="header__logo" aria-label="홈으로 이동">
         <img src="assets/images/logo.svg" alt="W. 로고">
       </a>
 
-      <!-- 데스크탑 네비게이션 (모바일/태블릿에서는 햄버거 메뉴로 동작) -->
+      <!-- 
+        메인 네비게이션 (Main Navigation)
+        - 클래스: .header__nav
+        - JS 연결: script.js의 SELECTORS.mainNav (#mainNav)
+        - 데스크탑: 항상 표시
+        - 모바일: .active 클래스로 슬라이드 메뉴 형태로 토글
+      -->
       <nav class="header__nav" id="mainNav" aria-label="메인 네비게이션">
-        <!-- 모바일 메뉴 닫기 버튼 (컨테이너 내부 상단 배치) -->
+
+        <!-- 
+          닫기 버튼 (Close Button) - 모바일 전용
+          - JS 연결: script.js의 SELECTORS.closeBtn (#closeBtn)
+          - 이벤트: click → closeMenu() 실행
+        -->
         <button class="header__close-btn" id="closeBtn" aria-label="메뉴 닫기">
           <img src="assets/images/icon-menu-close.svg" alt="">
         </button>
 
+        <!-- 네비게이션 링크 목록 - .header__nav-list -->
         <ul class="header__nav-list">
           <li class="header__nav-item">
             <a href="#" class="header__nav-link">Home</a>
@@ -55,44 +97,82 @@
         </ul>
       </nav>
 
-      <!-- 모바일 메뉴 버튼 -->
-      <button class="header__menu-btn" id="menuBtn" aria-label="메뉴 열기" aria-expanded="false">
+      <!-- 
+        햄버거 메뉴 버튼 (Menu Button) - 모바일/태블릿 전용
+        - JS 연결: script.js의 SELECTORS.menuBtn (#menuBtn)
+        - 이벤트: click → openMenu() 실행
+        - 접근성: aria-expanded, aria-controls 속성으로 상태 전달
+      -->
+      <button class="header__menu-btn" id="menuBtn" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mainNav">
         <img src="assets/images/icon-menu.svg" alt="" class="header__menu-icon">
       </button>
+
     </div>
   </header>
 
-  <!-- 메인 콘텐츠 -->
+  <!-- 
+    ============================================================================
+    MAIN - 메인 콘텐츠 영역
+    ============================================================================
+    - 클래스: .main, .main__container
+    - 구조: 그리드 레이아웃 (데스크탑: 3컬럼)
+    - 포함: 히어로 섹션, 뉴스 섹션, 추천 기사 섹션
+  -->
   <main class="main">
     <div class="main__container">
-      <!-- 히어로 섹션: 메인 기사 -->
+
+      <!-- 
+        ========================================================================
+        HERO SECTION - 메인 기사 영역
+        ========================================================================
+        - 클래스: .hero
+        - 그리드: 데스크탑에서 2컬럼 차지 (grid-column: 1 / 3)
+        - 구성: 반응형 이미지 + 제목 + 설명 + CTA 버튼
+      -->
       <section class="hero" aria-label="메인 기사">
-        <!-- 히어로 이미지 (반응형) -->
+
+        <!-- 반응형 이미지 - .hero__image -->
         <picture class="hero__image">
           <source media="(min-width: 768px)" srcset="assets/images/image-web-3-desktop.jpg">
           <img src="assets/images/image-web-3-mobile.jpg" alt="Web 3.0 관련 다채로운 3D 그래픽">
         </picture>
 
-        <!-- 히어로 콘텐츠 -->
+        <!-- 콘텐츠 래퍼 - .hero__content (데스크탑: 2등분 레이아웃) -->
         <div class="hero__content">
+
+          <!-- 메인 타이틀 - .hero__title -->
           <h1 class="hero__title">
             The Bright Future of Web 3.0?
           </h1>
 
+          <!-- 설명 및 CTA 영역 - .hero__description -->
           <div class="hero__description">
             <p class="hero__text">
               We dive into the next evolution of the web that claims to put the power of the platforms back into the
               hands of the people. But is it really fulfilling its promise?
             </p>
-            <a href="#" class="hero__btn">Read more</a>
+            <!-- CTA 버튼 - .hero__btn -->
+            <a href="#" class="hero__btn" aria-label="Web 3.0 기사 더 읽기">Read more</a>
           </div>
+
         </div>
       </section>
 
-      <!-- New 섹션: 새로운 뉴스 목록 -->
+      <!-- 
+        ========================================================================
+        NEWS SECTION - 새로운 뉴스 목록
+        ========================================================================
+        - 클래스: .news
+        - 그리드: 데스크탑에서 1컬럼 차지 (grid-column: 3 / 4)
+        - 배경: 다크 네이비 (#00001A)
+        - 구성: 타이틀 "New" + 뉴스 아이템 3개
+      -->
       <aside class="news" aria-label="새로운 뉴스">
+
+        <!-- 섹션 타이틀 - .news__title -->
         <h2 class="news__title">New</h2>
 
+        <!-- 뉴스 아이템 1 - .news__item -->
         <article class="news__item">
           <h3 class="news__item-title">
             <a href="#" class="news__item-link">Hydrogen VS Electric Cars</a>
@@ -102,6 +182,7 @@
           </p>
         </article>
 
+        <!-- 뉴스 아이템 2 - .news__item -->
         <article class="news__item">
           <h3 class="news__item-title">
             <a href="#" class="news__item-link">The Downsides of AI Artistry</a>
@@ -111,6 +192,7 @@
           </p>
         </article>
 
+        <!-- 뉴스 아이템 3 (마지막) - .news__item.news__item--last -->
         <article class="news__item news__item--last">
           <h3 class="news__item-title">
             <a href="#" class="news__item-link">Is VC Funding Drying Up?</a>
@@ -119,14 +201,26 @@
             Private funding by VC firms is down 50% YOY. We take a look at what that means.
           </p>
         </article>
+
       </aside>
 
-      <!-- 추천 기사 섹션 -->
+      <!-- 
+        ========================================================================
+        FEATURED SECTION - 추천 기사 목록
+        ========================================================================
+        - 클래스: .featured
+        - 그리드: 데스크탑에서 전체 너비 차지 (grid-column: 1 / 4)
+        - 레이아웃: 데스크탑에서 3등분 (flex: 1)
+        - 구성: 이미지 + 번호 + 제목 + 설명
+      -->
       <section class="featured" aria-label="추천 기사">
+
+        <!-- 추천 기사 1 - .featured__item -->
         <article class="featured__item">
           <img src="assets/images/image-retro-pcs.jpg" alt="레트로 PC" class="featured__image">
           <div class="featured__content">
-            <span class="featured__number">01</span>
+            <!-- 번호 (장식용) - .featured__number -->
+            <span class="featured__number" aria-hidden="true">01</span>
             <h3 class="featured__title">
               <a href="#" class="featured__link">Reviving Retro PCs</a>
             </h3>
@@ -136,10 +230,11 @@
           </div>
         </article>
 
+        <!-- 추천 기사 2 - .featured__item -->
         <article class="featured__item">
           <img src="assets/images/image-top-laptops.jpg" alt="노트북" class="featured__image">
           <div class="featured__content">
-            <span class="featured__number">02</span>
+            <span class="featured__number" aria-hidden="true">02</span>
             <h3 class="featured__title">
               <a href="#" class="featured__link">Top 10 Laptops of 2022</a>
             </h3>
@@ -149,10 +244,11 @@
           </div>
         </article>
 
+        <!-- 추천 기사 3 - .featured__item -->
         <article class="featured__item">
           <img src="assets/images/image-gaming-growth.jpg" alt="게임 컨트롤러" class="featured__image">
           <div class="featured__content">
-            <span class="featured__number">03</span>
+            <span class="featured__number" aria-hidden="true">03</span>
             <h3 class="featured__title">
               <a href="#" class="featured__link">The Growth of Gaming</a>
             </h3>
@@ -161,12 +257,19 @@
             </p>
           </div>
         </article>
+
       </section>
+
     </div>
   </main>
 
-  <!-- JavaScript 파일 연결 (defer: HTML 파싱 후 실행) -->
+  <!-- 
+    Main JavaScript
+    - defer 속성: HTML 파싱 완료 후 실행
+    - 역할: 모바일 메뉴 토글 기능 구현
+  -->
   <script src="script.js" defer></script>
+
 </body>
 
 </html>

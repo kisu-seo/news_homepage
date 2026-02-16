@@ -14,7 +14,7 @@
     --color-navy-600: #5E607A;
 
     --color-gold-400: #F99A52;
-    --color-red-600: #FF5D51;
+    --color-red-500: #F15D51;
 
     /* 타이포그래피 - Font Sizes */
     --font-size-preset-1: 56px;
@@ -180,6 +180,12 @@ button {
     height: auto;
 }
 
+/* 네비게이션 & 메뉴 컨트롤 래퍼 */
+.header__nav-wrapper {
+    display: flex;
+    align-items: center;
+}
+
 /* 데스크탑 네비게이션 */
 .header__nav {
     display: none;
@@ -211,6 +217,11 @@ button {
     z-index: 1000;
 }
 
+/* 메뉴가 열렸을 때 햄버거 버튼 숨김 */
+.header__menu-btn[aria-expanded="true"] {
+    display: none;
+}
+
 .header__menu-icon {
     width: 40px;
     height: 17px;
@@ -220,9 +231,12 @@ button {
 .header__close-btn {
     display: none;
     /* 기본적으로 숨김 */
-    position: fixed;
-    top: var(--spacing-300);
-    right: var(--container-padding);
+    position: absolute;
+    /* 컨테이너(#mainNav) 기준 절대 위치 */
+    top: 32px;
+    /* 상단에서 32px */
+    right: 21px;
+    /* 우측에서 21px */
     z-index: 1000;
 }
 
@@ -242,8 +256,8 @@ button {
     height: 100vh;
     /* 전체 높이 */
     background-color: var(--color-white);
-    padding: 144px 24px;
-    /* 상단 여백 + 좌우 여백 */
+    padding: 27px 21px;
+    /* 상하 27px + 좌우 21px 여백 수정 */
     z-index: 999;
     transform: translateX(0);
     /* 슬라이드 인 */
@@ -255,6 +269,8 @@ button {
     /* 세로 배치 */
     gap: var(--spacing-300);
     /* 간격 24px */
+    padding-top: 118.41px;
+    /* 상단 메뉴 아이템 시작 지점 조절 */
 }
 
 .header__nav.active .header__nav-link {
@@ -346,7 +362,7 @@ button {
     /* 너비 185px 고정 */
     height: 48px;
     /* 높이 48px 고정 */
-    background-color: var(--color-red-600);
+    background-color: var(--color-red-500);
     color: var(--color-navy-950);
     /* 텍스트 색상을 Navy 950으로 변경 */
 
@@ -378,8 +394,8 @@ button {
    ======================================== */
 .news {
     background-color: var(--color-navy-950);
-    padding: 16px 24px;
-    /* 상하 16px, 좌우 24px 패딩 수정 */
+    padding: var(--spacing-300);
+    /* 24px 패딩 */
     margin-bottom: var(--spacing-800);
     /* 하단 여백 64px */
 }
@@ -391,13 +407,11 @@ button {
     font-weight: var(--font-weight-bold);
     color: var(--color-gold-400);
     /* 골드 색상 */
-    margin-bottom: var(--spacing-400);
-    /* 하단 여백 32px */
 }
 
 .news__item {
-    padding: var(--spacing-300) 0;
-    /* 상하 24px 패딩 */
+    padding: var(--spacing-400) 0;
+    /* 상하 32px 패딩으로 수정 */
     border-bottom: 1px solid var(--color-navy-600);
     /* 구분선 */
 }
@@ -405,6 +419,8 @@ button {
 .news__item--last {
     border-bottom: none;
     /* 마지막 아이템은 구분선 없음 */
+    padding-bottom: 0;
+    /* 아래쪽 패딩 삭제 */
 }
 
 .news__item-title {
@@ -442,8 +458,8 @@ button {
     flex-direction: column;
     gap: var(--spacing-400);
     /* 아이템 간격 32px */
-    margin-bottom: var(--spacing-800);
-    /* 하단 여백 64px */
+    margin-bottom: 80px;
+    /* 하단 여백 80px로 수정 */
 }
 
 .featured__item {
@@ -466,8 +482,8 @@ button {
 .featured__content {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    /* 번호와 텍스트 사이 공간 분배 */
+    gap: var(--spacing-100);
+    /* 이미지 분석 결과 번호와 텍스트 사이 간격 8px 설정 */
 }
 
 .featured__number {
@@ -475,13 +491,10 @@ button {
     /* 32px */
     line-height: var(--line-height-preset-3);
     font-weight: var(--font-weight-bold);
-    color: var(--color-grey-300);
+    color: var(--color-red-500);
 }
 
-.featured__title {
-    margin-bottom: var(--spacing-100);
-    /* 하단 여백 8px */
-}
+/* .featured__title 하단 마진 삭제됨 */
 
 .featured__link {
     font-size: var(--font-size-preset-5);

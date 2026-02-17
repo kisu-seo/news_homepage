@@ -9,7 +9,6 @@
  * @dependencies - index.html: 모든 HTML 요소의 클래스명과 매칭
  *               - script.js: .active 클래스를 JavaScript에서 토글
  * 
- * @author       Frontend Mentor Challenge
  * @note         - 모바일 우선 (Mobile First) 접근
  *               - px → rem 변환으로 접근성 향상
  *               - CSS 속성 순서: Layout → Box Model → Typography → Visual
